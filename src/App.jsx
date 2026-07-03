@@ -8,6 +8,7 @@ import { SectionPlaceholder } from './components/SectionPlaceholder.jsx'
 import Section0Welcome from './sections/Section0Welcome.jsx'
 import Section1Web from './sections/Section1Web.jsx'
 import Section2StaticVsDynamic from './sections/Section2StaticVsDynamic.jsx'
+import Section3JavaEE from './sections/Section3JavaEE.jsx'
 import Section4Servlet from './sections/Section4Servlet.jsx'
 import Section5ServletAPI from './sections/Section5ServletAPI.jsx'
 
@@ -16,6 +17,7 @@ const SECTION_COMPONENTS = {
   0: Section0Welcome,
   1: Section1Web,
   2: Section2StaticVsDynamic,
+  3: Section3JavaEE,
   4: Section4Servlet,
   5: Section5ServletAPI,
 }
