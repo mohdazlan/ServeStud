@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SECTIONS } from './lib/sections.js'
 import { ProgressProvider, useProgress } from './hooks/useProgress.jsx'
 import { Sidebar, TabBar } from './components/SectionNav.jsx'
@@ -11,6 +11,11 @@ import Section2StaticVsDynamic from './sections/Section2StaticVsDynamic.jsx'
 import Section3JavaEE from './sections/Section3JavaEE.jsx'
 import Section4Servlet from './sections/Section4Servlet.jsx'
 import Section5ServletAPI from './sections/Section5ServletAPI.jsx'
+import { lazy, Suspense } from 'react'
+
+const RegExSifuApp = lazy(() =>
+  import('./regex-sifu/RegExSifuApp.jsx').then((m) => ({ default: m.RegExSifuApp }))
+)
 
 // Built sections register here; the rest render an honest placeholder.
 const SECTION_COMPONENTS = {
@@ -22,13 +27,23 @@ const SECTION_COMPONENTS = {
   5: Section5ServletAPI,
 }
 
-function MobileHeader() {
+function MobileHeader({ onOpenRegExSifu }) {
   return (
-    <header className="border-b border-hairline bg-paper-aged px-6 py-4 lg:hidden">
-      <p className="text-xs text-ink-muted">DFP50283 · Topic 1</p>
-      <h1 className="font-display text-lg leading-tight font-semibold">
-        Java Web Technologies
-      </h1>
+    <header className="border-b border-hairline bg-paper-aged px-4 py-3 lg:hidden flex items-center justify-between gap-2">
+      <div>
+        <p className="text-xs text-ink-muted">DFP50283 · Topic 1</p>
+        <h1 className="font-display text-base leading-tight font-semibold">
+          Java Web Technologies
+        </h1>
+      </div>
+      <button
+        type="button"
+        onClick={onOpenRegExSifu}
+        className="px-2.5 py-1.5 rounded-lg bg-[#080e1a] text-cyan-300 border border-[#1d2d48] text-xs font-semibold flex items-center gap-1.5 shadow-sm"
+      >
+        <span className="font-mono text-cyan-400 font-bold">.*</span>
+        <span>RegEx Sifu</span>
+      </button>
     </header>
   )
 }
@@ -68,7 +83,7 @@ function SectionView() {
   )
 }
 
-function Shell() {
+function Shell({ onOpenRegExSifu }) {
   return (
     <div className="min-h-svh lg:grid lg:grid-cols-[18rem_minmax(0,1fr)]">
       <a
@@ -80,7 +95,7 @@ function Shell() {
       <ProgressBar />
       <Sidebar />
       <div className="flex min-w-0 flex-col">
-        <MobileHeader />
+        <MobileHeader onOpenRegExSifu={onOpenRegExSifu} />
         <TabBar />
         <main id="content" className="flex-1 max-md:pb-28">
           <SectionView />
@@ -92,9 +107,74 @@ function Shell() {
 }
 
 function App() {
+  // Determine if URL or local storage points to RegEx Sifu
+  const checkIsRegExSifu = () => {
+    if (typeof window === 'undefined') return false
+    const hash = window.location.hash.toLowerCase()
+    const search = window.location.search.toLowerCase()
+    const path = window.location.pathname.toLowerCase()
+    const stored = localStorage.getItem('servestud_active_subapp')
+
+    return (
+      hash.includes('regex') ||
+      search.includes('regex-sifu') ||
+      path.includes('regex-sifu') ||
+      stored === 'regex-sifu'
+    )
+  }
+
+  const [activeSubApp, setActiveSubApp] = useState(checkIsRegExSifu() ? 'regex-sifu' : 'servestud')
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const isSifu = checkIsRegExSifu()
+      setActiveSubApp(isSifu ? 'regex-sifu' : 'servestud')
+    }
+
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [])
+
+  const switchToRegExSifu = () => {
+    setActiveSubApp('regex-sifu')
+    try {
+      localStorage.setItem('servestud_active_subapp', 'regex-sifu')
+      window.location.hash = '/regex-sifu'
+    } catch {
+      // Fallback
+    }
+  }
+
+  const switchToServeStud = () => {
+    setActiveSubApp('servestud')
+    try {
+      localStorage.setItem('servestud_active_subapp', 'servestud')
+      window.location.hash = ''
+    } catch {
+      // Fallback
+    }
+  }
+
+  if (activeSubApp === 'regex-sifu') {
+    return (
+      <Suspense
+        fallback={
+          <div className="min-h-screen bg-[#070a12] flex items-center justify-center text-cyan-400 font-mono text-sm">
+            <div className="flex items-center gap-2">
+              <span className="size-2 rounded-full bg-cyan-400 animate-ping" />
+              <span>MEMUATKAN REGEX SIFU DOJO...</span>
+            </div>
+          </div>
+        }
+      >
+        <RegExSifuApp onSwitchToServeStud={switchToServeStud} />
+      </Suspense>
+    )
+  }
+
   return (
     <ProgressProvider>
-      <Shell />
+      <Shell onOpenRegExSifu={switchToRegExSifu} />
     </ProgressProvider>
   )
 }

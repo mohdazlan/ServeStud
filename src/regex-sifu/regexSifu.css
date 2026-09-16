@@ -1,0 +1,124 @@
+/* RegEx Sifu — Custom Visual & Motion Styles */
+
+.regex-sifu-theme {
+  --sifu-bg: #070a12;
+  --sifu-surface-1: #0d1322;
+  --sifu-surface-2: #141d33;
+  --sifu-surface-3: #1c2744;
+  --sifu-border: #1e2c4a;
+  --sifu-border-subtle: #162238;
+  --sifu-border-focus: #00f0ff;
+  --sifu-cyan: #00f0ff;
+  --sifu-cyan-dim: rgba(0, 240, 255, 0.15);
+  --sifu-amber: #f59e0b;
+  --sifu-amber-dim: rgba(245, 158, 11, 0.15);
+  --sifu-emerald: #10b981;
+  --sifu-rose: #f43f5e;
+  --sifu-text: #e2e8f0;
+  --sifu-text-muted: #94a3b8;
+  --sifu-text-dim: #64748b;
+
+  background-color: var(--sifu-bg);
+  color: var(--sifu-text);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  color-scheme: dark;
+}
+
+/* Custom crisp dark scrollbar */
+.regex-sifu-theme ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.regex-sifu-theme ::-webkit-scrollbar-track {
+  background: #080d18;
+}
+.regex-sifu-theme ::-webkit-scrollbar-thumb {
+  background: #1e2c4a;
+  border-radius: 3px;
+}
+.regex-sifu-theme ::-webkit-scrollbar-thumb:hover {
+  background: #2b3d63;
+}
+
+/* Monospace font binding for regex & code elements */
+.sifu-mono {
+  font-family: var(--font-mono, 'JetBrains Mono Variable', monospace);
+}
+
+/* Restrained technical glow (never blinding) */
+.glow-cyan-subtle {
+  box-shadow: 0 0 16px -2px rgba(0, 240, 255, 0.12);
+}
+.glow-amber-subtle {
+  box-shadow: 0 0 16px -2px rgba(245, 158, 11, 0.12);
+}
+.glow-emerald-subtle {
+  box-shadow: 0 0 16px -2px rgba(16, 185, 129, 0.15);
+}
+.glow-rose-subtle {
+  box-shadow: 0 0 16px -2px rgba(244, 63, 94, 0.15);
+}
+
+/* Subtle scanlines for intro sequence (strictly lightweight) */
+.sifu-scanlines {
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0) 50%,
+    rgba(0, 240, 255, 0.03) 50%,
+    rgba(0, 240, 255, 0.03)
+  );
+  background-size: 100% 4px;
+}
+
+/* Controlled horizontal beam scan */
+@keyframes sifu-beam {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 0.6; }
+  100% { transform: translateY(1000%); opacity: 0; }
+}
+.animate-sifu-beam {
+  animation: sifu-beam 2.8s ease-in-out infinite;
+}
+
+/* High contrast focus ring for keyboard accessibility */
+.regex-sifu-theme a:focus-visible,
+.regex-sifu-theme button:focus-visible,
+.regex-sifu-theme input:focus-visible,
+.regex-sifu-theme textarea:focus-visible,
+.regex-sifu-theme select:focus-visible {
+  outline: 2px solid var(--sifu-cyan);
+  outline-offset: 2px;
+}
+
+/* Projector mode adjustments: high contrast, enlarged fonts */
+.projector-mode {
+  font-size: 1.15rem;
+}
+.projector-mode .sifu-mono {
+  font-size: 1.25rem !important;
+  font-weight: 600;
+}
+.projector-mode .projector-border {
+  border-width: 2px !important;
+  border-color: #3b82f6 !important;
+}
+
+/* Print worksheet styles for Lecturer mode */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-worksheet, #printable-worksheet * {
+    visibility: visible;
+  }
+  #printable-worksheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    color: #000 !important;
+    background: #fff !important;
+    padding: 20px;
+  }
+}

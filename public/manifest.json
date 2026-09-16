@@ -1,0 +1,16 @@
+{
+  "name": "RegEx Sifu // Malaysian Web Validation Dojo",
+  "short_name": "RegEx Sifu",
+  "description": "Interactive RegEx Dojo for HTML & JavaScript form validation with Malaysian worked examples.",
+  "start_url": "/#/regex-sifu",
+  "display": "standalone",
+  "background_color": "#070a12",
+  "theme_color": "#070a12",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

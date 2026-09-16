@@ -174,7 +174,25 @@ export function Sidebar() {
         </ul>
       </nav>
 
-      <footer className="border-t border-hairline px-3 py-3">
+      <footer className="border-t border-hairline px-3 py-3 space-y-2">
+        <button
+          type="button"
+          onClick={() => {
+            if (typeof window !== 'undefined') {
+              window.location.hash = '/regex-sifu'
+              window.dispatchEvent(new HashChangeEvent('hashchange'))
+            }
+          }}
+          className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-[#080e1a] hover:bg-[#0f192c] text-cyan-300 border border-[#1d2d48] text-xs font-medium shadow-sm transition-all"
+        >
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-cyan-400 font-bold bg-[#142036] px-1.5 py-0.5 rounded text-[11px]">.*</span>
+            <span className="font-semibold">RegEx Sifu Dojo</span>
+          </div>
+          <span className="text-[10px] bg-cyan-950/80 text-cyan-300 px-1.5 py-0.5 rounded border border-cyan-500/40 font-mono">
+            Buka
+          </span>
+        </button>
         <p className="px-3 pb-1 text-xs text-ink-muted">
           {done} of {SECTION_COUNT} sections complete
         </p>
