@@ -175,6 +175,9 @@ export function Sidebar() {
       </nav>
 
       <footer className="border-t border-hairline px-3 py-3 space-y-2">
+        <a href="#/topic-3" className="flex min-h-11 items-center rounded-lg border border-lamp/50 px-3 text-sm font-semibold text-lamp transition-colors hover:bg-paper">
+          Topic 3 · Introduction to JSP
+        </a>
         <button
           type="button"
           onClick={() => {

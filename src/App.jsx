@@ -11,6 +11,7 @@ import Section2StaticVsDynamic from './sections/Section2StaticVsDynamic.jsx'
 import Section3JavaEE from './sections/Section3JavaEE.jsx'
 import Section4Servlet from './sections/Section4Servlet.jsx'
 import Section5ServletAPI from './sections/Section5ServletAPI.jsx'
+import Topic3JSP from './topic3/Topic3JSP.jsx'
 import { lazy, Suspense } from 'react'
 
 const RegExSifuApp = lazy(() =>
@@ -27,7 +28,7 @@ const SECTION_COMPONENTS = {
   5: Section5ServletAPI,
 }
 
-function MobileHeader({ onOpenRegExSifu }) {
+function MobileHeader({ onOpenRegExSifu, onOpenTopic3 }) {
   return (
     <header className="border-b border-hairline bg-paper-aged px-4 py-3 lg:hidden flex items-center justify-between gap-2">
       <div>
@@ -36,14 +37,17 @@ function MobileHeader({ onOpenRegExSifu }) {
           Java Web Technologies
         </h1>
       </div>
-      <button
-        type="button"
-        onClick={onOpenRegExSifu}
-        className="px-2.5 py-1.5 rounded-lg bg-[#080e1a] text-cyan-300 border border-[#1d2d48] text-xs font-semibold flex items-center gap-1.5 shadow-sm"
-      >
-        <span className="font-mono text-cyan-400 font-bold">.*</span>
-        <span>RegEx Sifu</span>
-      </button>
+      <div className="flex flex-wrap justify-end gap-2">
+        <button type="button" onClick={onOpenTopic3} className="rounded-lg border border-lamp px-2.5 py-1.5 text-xs font-semibold text-lamp">Topic 3 · JSP</button>
+        <button
+          type="button"
+          onClick={onOpenRegExSifu}
+          className="px-2.5 py-1.5 rounded-lg bg-[#080e1a] text-cyan-300 border border-[#1d2d48] text-xs font-semibold flex items-center gap-1.5 shadow-sm"
+        >
+          <span className="font-mono text-cyan-400 font-bold">.*</span>
+          <span>RegEx Sifu</span>
+        </button>
+      </div>
     </header>
   )
 }
@@ -83,7 +87,7 @@ function SectionView() {
   )
 }
 
-function Shell({ onOpenRegExSifu }) {
+function Shell({ onOpenRegExSifu, onOpenTopic3 }) {
   return (
     <div className="min-h-svh lg:grid lg:grid-cols-[18rem_minmax(0,1fr)]">
       <a
@@ -95,7 +99,7 @@ function Shell({ onOpenRegExSifu }) {
       <ProgressBar />
       <Sidebar />
       <div className="flex min-w-0 flex-col">
-        <MobileHeader onOpenRegExSifu={onOpenRegExSifu} />
+        <MobileHeader onOpenRegExSifu={onOpenRegExSifu} onOpenTopic3={onOpenTopic3} />
         <TabBar />
         <main id="content" className="flex-1 max-md:pb-28">
           <SectionView />
@@ -108,27 +112,27 @@ function Shell({ onOpenRegExSifu }) {
 
 function App() {
   // Determine if URL or local storage points to RegEx Sifu
-  const checkIsRegExSifu = () => {
+  const checkActiveSubApp = () => {
     if (typeof window === 'undefined') return false
     const hash = window.location.hash.toLowerCase()
     const search = window.location.search.toLowerCase()
     const path = window.location.pathname.toLowerCase()
     const stored = localStorage.getItem('servestud_active_subapp')
 
+    if (hash.includes('topic-3') || search.includes('topic-3')) return 'topic-3'
     return (
       hash.includes('regex') ||
       search.includes('regex-sifu') ||
       path.includes('regex-sifu') ||
       stored === 'regex-sifu'
-    )
+    ) ? 'regex-sifu' : 'servestud'
   }
 
-  const [activeSubApp, setActiveSubApp] = useState(checkIsRegExSifu() ? 'regex-sifu' : 'servestud')
+  const [activeSubApp, setActiveSubApp] = useState(checkActiveSubApp)
 
   useEffect(() => {
     const handleHashChange = () => {
-      const isSifu = checkIsRegExSifu()
-      setActiveSubApp(isSifu ? 'regex-sifu' : 'servestud')
+      setActiveSubApp(checkActiveSubApp())
     }
 
     window.addEventListener('hashchange', handleHashChange)
@@ -155,6 +159,15 @@ function App() {
     }
   }
 
+  const switchToTopic3 = () => {
+    setActiveSubApp('topic-3')
+    window.location.hash = '/topic-3'
+  }
+
+  if (activeSubApp === 'topic-3') {
+    return <Topic3JSP onBack={switchToServeStud} />
+  }
+
   if (activeSubApp === 'regex-sifu') {
     return (
       <Suspense
@@ -174,7 +187,7 @@ function App() {
 
   return (
     <ProgressProvider>
-      <Shell onOpenRegExSifu={switchToRegExSifu} />
+      <Shell onOpenRegExSifu={switchToRegExSifu} onOpenTopic3={switchToTopic3} />
     </ProgressProvider>
   )
 }

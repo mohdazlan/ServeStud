@@ -2,6 +2,8 @@
 
 Interactive learning companion for **Topic 1: Introduction to Java Web Technologies** (DFP50283, Politeknik Mukah). A single-page React app that teaches HTTP, containers, and servlets through a Library Management System metaphor — animations, exercises, and gated checkpoint quizzes.
 
+The app also includes a separate [Topic 3: Introduction to JavaServer Pages](TOPIC3.md) lesson at `#/topic-3`. Its Northwind lab includes two downloadable SQL scripts, a MySQL Workbench import guide, and a JOIN-view exercise.
+
 ## Stack
 
 React 19 · Vite 8 · Tailwind CSS 4 · Framer Motion · Lucide React · self-hosted fonts (Fraunces, Source Sans 3, JetBrains Mono)
