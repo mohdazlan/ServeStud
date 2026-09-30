@@ -1,13 +1,30 @@
-// Section metadata — titles, durations, and teasers per SPEC.md.
-// `navTitle` is the compact label for the sidebar; `tabTitle` fits the
-// mobile bottom tabs.
+// Section metadata — titles, durations, and teasers per Politeknik DFP50283 syllabus.
+// `navTitle` is the compact label for the sidebar; `tabTitle` fits the mobile bottom tabs.
 
-export const SECTION_COUNT = 6
+export const SECTION_COUNT = 8
 export const LAST_SECTION = SECTION_COUNT - 1
+
+export const TOPICS = [
+  {
+    id: 1,
+    code: 'TOPIC 1',
+    title: 'Introduction to Java Web Technologies',
+    subtitle: 'Web architecture, Java EE tiers, Servlet lifecycle & API',
+    sectionIds: [0, 1, 2, 3, 4, 5],
+  },
+  {
+    id: 2,
+    code: 'TOPIC 2',
+    title: 'Developing Servlet (Cont...)',
+    subtitle: 'Data validation (Client & Server), ServerResponse & HTTP Headers',
+    sectionIds: [6, 7],
+  },
+]
 
 export const SECTIONS = [
   {
     id: 0,
+    topicId: 1,
     title: 'Welcome & Orientation',
     navTitle: 'Welcome',
     tabTitle: 'Welcome',
@@ -18,6 +35,7 @@ export const SECTIONS = [
   },
   {
     id: 1,
+    topicId: 1,
     title: 'The Web — What Actually Happens When You Visit a Website?',
     navTitle: 'The Web',
     tabTitle: 'Web',
@@ -28,6 +46,7 @@ export const SECTIONS = [
   },
   {
     id: 2,
+    topicId: 1,
     title: 'Static vs Dynamic — Why Servlets Exist',
     navTitle: 'Static vs Dynamic',
     tabTitle: 'Static',
@@ -38,6 +57,7 @@ export const SECTIONS = [
   },
   {
     id: 3,
+    topicId: 1,
     title: 'The Java EE Universe — Where Everything Lives',
     navTitle: 'The Java EE Universe',
     tabTitle: 'Java EE',
@@ -48,6 +68,7 @@ export const SECTIONS = [
   },
   {
     id: 4,
+    topicId: 1,
     title: 'Meet the Servlet — Anatomy & Lifecycle',
     navTitle: 'Meet the Servlet',
     tabTitle: 'Servlet',
@@ -58,6 +79,7 @@ export const SECTIONS = [
   },
   {
     id: 5,
+    topicId: 1,
     title: 'The Servlet API — Speaking the Container’s Language',
     navTitle: 'The Servlet API',
     tabTitle: 'API',
@@ -65,5 +87,27 @@ export const SECTIONS = [
     covers: 'Topics 1.3.4, 1.3.5 — core Servlet API and HTTP servlets',
     teaser:
       'When the container hands your servlet a request, what exactly do you get — and what can you do with it?',
+  },
+  {
+    id: 6,
+    topicId: 2,
+    title: 'Data Validation in Dynamic Web Pages',
+    navTitle: '2.3 Data Validation',
+    tabTitle: 'Validation',
+    minutes: 12,
+    covers: 'Topic 2.3 — Client-side & server-side validation, regex, error handling',
+    teaser:
+      'Learn how to protect your server: validate on the browser for fast UX, and validate in the servlet for ironclad security.',
+  },
+  {
+    id: 7,
+    topicId: 2,
+    title: 'ServerResponse: HTTP Response Headers & Redirection',
+    navTitle: '2.4 Response & Headers',
+    tabTitle: 'Response',
+    minutes: 12,
+    covers: 'Topic 2.4 — HTTP response format, headers, sendRedirect vs forward',
+    teaser:
+      'Master the HTTP response envelope: manipulate headers, manage browser cache, and understand sendRedirect vs RequestDispatcher.forward().',
   },
 ]

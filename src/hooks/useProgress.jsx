@@ -6,8 +6,12 @@ import { LAST_SECTION } from '../lib/sections.js'
 
 const STORAGE_KEY = 'servestud-progress-v1'
 
+// Free roaming mode: Unlock all sections [0..LAST_SECTION]
 export const initialProgress = {
+  unlockedSections: [0, 1, 2, 3, 4, 5, 6, 7], // All sections unlocked for free roaming
+  /* PREVIOUS GATED PROGRESSION LOGIC:
   unlockedSections: [0, 1], // Sections 0 and 1 are auto-unlocked
+  */
   completedSections: [],
   currentSection: 0,
   quizAttempts: {}, // { [sectionId]: { attempts, passed, answers } }
@@ -21,7 +25,9 @@ function withUnique(list, value) {
 function reducer(state, action) {
   switch (action.type) {
     case 'goTo': {
+      /* PREVIOUS GATED LOGIC:
       if (!state.unlockedSections.includes(action.section)) return state
+      */
       return { ...state, currentSection: action.section }
     }
     case 'passQuiz': {
@@ -68,13 +74,16 @@ function loadProgress() {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) return initialProgress
     const saved = JSON.parse(raw)
-    // Merge over defaults so new fields survive old saves
+    // Free roaming: ensure all sections are accessible
     return {
       ...initialProgress,
       ...saved,
+      unlockedSections: [0, 1, 2, 3, 4, 5, 6, 7],
+      /* PREVIOUS GATED RESTORE:
       unlockedSections: Array.isArray(saved.unlockedSections)
         ? saved.unlockedSections
         : initialProgress.unlockedSections,
+      */
     }
   } catch {
     return initialProgress

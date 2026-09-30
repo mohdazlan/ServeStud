@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
   Code2,
   BookOpen,
@@ -10,6 +9,7 @@ import {
   Monitor,
   Volume2,
   VolumeX,
+  Database,
 } from 'lucide-react'
 import { soundEffects } from '../engine/soundEffects.js'
 
@@ -21,6 +21,7 @@ export function TopNav({
   onReplayIntro,
   onOpenPrivacy,
   onSwitchToServeStud,
+  onSwitchToSqlGuru,
 }) {
   const [soundOn, setSoundOn] = useState(soundEffects.isEnabled())
 
@@ -40,7 +41,7 @@ export function TopNav({
   return (
     <header className="border-b border-[#1a253d] bg-[#070b15]/95 backdrop-blur sticky top-0 z-30 px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2 select-none">
       {/* Brand Identity & Sub-app Switcher */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3">
         {onSwitchToServeStud && (
           <button
             type="button"
@@ -49,8 +50,19 @@ export function TopNav({
             title="Kembali ke Modul Topic 1: Java Web Technologies"
           >
             <BookOpen size={13} className="text-amber-400" />
-            <span className="hidden sm:inline">ServeStud: Java Web</span>
-            <span className="sm:hidden">Java</span>
+            <span className="hidden sm:inline">ServeStud</span>
+          </button>
+        )}
+
+        {onSwitchToSqlGuru && (
+          <button
+            type="button"
+            onClick={onSwitchToSqlGuru}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-emerald-500/40 bg-[#07131e] hover:bg-[#0d2133] text-emerald-300 text-xs font-medium transition-colors"
+            title="Buka SQL-Guru AI Tutor"
+          >
+            <Database size={13} className="text-emerald-400" />
+            <span className="hidden sm:inline">SQL-Guru</span>
           </button>
         )}
 

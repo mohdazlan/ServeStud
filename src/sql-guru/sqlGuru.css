@@ -1,0 +1,53 @@
+/* SQL-Guru Dedicated Theme & Styling */
+
+.sql-guru-theme {
+  --sql-bg: #070e17;
+  --sql-panel: #0d1726;
+  --sql-card: #122035;
+  --sql-border: #1e314f;
+  --sql-border-highlight: #2f4b75;
+  --sql-emerald: #10b981;
+  --sql-cyan: #06b6d4;
+  --sql-indigo: #6366f1;
+  --sql-amber: #f59e0b;
+  font-family: var(--font-sans, system-ui, sans-serif);
+}
+
+.sql-guru-theme .sql-mono {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+}
+
+.glow-emerald-subtle {
+  box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.25);
+}
+
+.glow-indigo-subtle {
+  box-shadow: 0 0 15px -3px rgba(99, 102, 241, 0.25);
+}
+
+.sql-guru-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.sql-guru-scrollbar::-webkit-scrollbar-track {
+  background: rgba(13, 23, 38, 0.5);
+}
+
+.sql-guru-scrollbar::-webkit-scrollbar-thumb {
+  background: #1e314f;
+  border-radius: 3px;
+}
+
+.sql-guru-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #2f4b75;
+}
+
+@keyframes sql-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-sql-pulse {
+  animation: sql-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

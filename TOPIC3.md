@@ -10,6 +10,12 @@ The audience is diploma students who know basic Java and HTML. Therefore the les
 
 ## Development record
 
+### 2026-09-24 · Source-folder recheck
+
+- Rechecked the complete `ServeStud-main` folder, including nested files outside `node_modules` and `dist`. The Markdown sources present are `README.md`, `SPEC.md`, `PRODUCT.md`, `DESIGN.md`, and this file. There is no PDF or ODF file in the project at this time.
+- Reviewed the full Markdown outline and the Topic 1 sections that introduce JSP as a web-tier presentation technology and JDBC as the database bridge. The Topic 3 lesson continues those established concepts and the same library metaphor.
+- Also checked the folder containing the two caption files mentioned in the request; it contains Markdown guides but no PDF or ODF. The exact document path is needed to finish the requested PDF/ODF review.
+
 ### 2026-09-24 · Lesson shell and interactive learning path
 
 - Added a separate Topic 3 route at `#/topic-3`, reachable from Topic 1 navigation, with its own section navigation and page title. Topic 1 quiz progress remains separate.

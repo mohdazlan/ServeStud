@@ -14,7 +14,7 @@ import { NotFoundPage } from './components/NotFoundPage.jsx'
 import { Layers, Bot, Code2 } from 'lucide-react'
 import './regexSifu.css'
 
-export function RegExSifuApp({ onSwitchToServeStud }) {
+export function RegExSifuApp({ onSwitchToServeStud, onSwitchToSqlGuru }) {
   // Navigation & View State
   const [activeTab, setActiveTab] = useState('playground') // 'playground' | 'learning' | 'challenges' | 'lecturer' | 'faq' | '404'
   const [selectedPatternId, setSelectedPatternId] = useState(PATTERNS[0].id)
@@ -107,6 +107,7 @@ export function RegExSifuApp({ onSwitchToServeStud }) {
         onReplayIntro={handleReplayIntro}
         onOpenPrivacy={() => setIsPrivacyOpen(true)}
         onSwitchToServeStud={onSwitchToServeStud}
+        onSwitchToSqlGuru={onSwitchToSqlGuru}
       />
 
       {/* View Router */}
